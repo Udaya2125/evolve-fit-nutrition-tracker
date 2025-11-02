@@ -39,6 +39,7 @@ export const getFoodDetails = async (foodName) => {
 /**
  * Saves a new food log entry to the database.
  * @param {Object} logEntry - The complete log object to be saved.
+ *Asks the user to provide the next file.
  * @returns {Promise<Object>} A promise that resolves to the saved log object.
  */
 export const logFood = async (logEntry) => {
