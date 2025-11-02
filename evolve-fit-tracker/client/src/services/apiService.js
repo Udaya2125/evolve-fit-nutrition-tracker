@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance with a base URL from environment variables
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL',
+  baseURL: import.meta.env.VITE_API_URL, // <-- THIS LINE IS NOW FIXED
 });
 
 
