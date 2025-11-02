@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+// Create an Axios instance with a base URL from environment variables
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5001/api',
+});
+
+
 /**
  * Searches for food items based on a query.
  * @param {string} query - The user's search term.
@@ -7,9 +13,7 @@ import axios from 'axios';
  */
 export const searchFood = async (query) => {
   try {
-    // We can use a relative URL '/api/search' because of the proxy
-    // we set up in vite.config.js.
-    const response = await axios.get(`/api/search?q=${query}`);
+    const response = await apiClient.get(`/search?q=${query}`);
     return response.data;
   } catch (error) {
     console.error('Error searching food:', error);
@@ -24,7 +28,7 @@ export const searchFood = async (query) => {
  */
 export const getFoodDetails = async (foodName) => {
   try {
-    const response = await axios.get(`/api/food?name=${encodeURIComponent(foodName)}`);
+    const response = await apiClient.get(`/food?name=${encodeURIComponent(foodName)}`);
     return response.data;
   } catch (error) {
     console.error('Error getting food details:', error);
@@ -39,7 +43,7 @@ export const getFoodDetails = async (foodName) => {
  */
 export const logFood = async (logEntry) => {
   try {
-    const response = await axios.post('/api/log', logEntry);
+    const response = await apiClient.post('/log', logEntry);
     return response.data;
   } catch (error) {
     console.error('Error logging food:', error);
@@ -54,7 +58,7 @@ export const logFood = async (logEntry) => {
  */
 export const getLogsByDate = async (dateString) => {
   try {
-    const response = await axios.get(`/api/log/date?date=${dateString}`);
+    const response = await apiClient.get(`/log/date?date=${dateString}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching logs by date:', error);
@@ -70,7 +74,7 @@ export const getLogsByDate = async (dateString) => {
 export const deleteLog = async (logId) => {
   try {
     // We use axios.delete and pass the ID in the URL
-    const response = await axios.delete(`/api/log/${logId}`);
+    const response = await apiClient.delete(`/log/${logId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting log:', error);
